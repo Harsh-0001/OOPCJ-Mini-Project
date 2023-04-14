@@ -1,0 +1,86 @@
+Topic -: E Commerce Object Oriented Mini Project
+
+
+Requirements
+1. Language: C++
+2. Concepts included constructors (any 2 types), inheritance, polymorphism, operator overloading, exception handling, template and file handling. 
+3. The project will be a console based application.
+4. The project should be a menu driven application.
+
+
+
+Project Description
+Classes required in project -> Consumer,Producer,Admin,Category,Product,Login and signup
+
+
+Project Workflow
+1. The menu driver main function will have 3 options 1. Login 2. Signup 3. Exit
+2. If the user selects login option, the user will be asked to enter the username and password. If the username and password are correct, the user will be redirected to the home page. If the username and password are incorrect, the user will be asked to enter the username and password again. If the user enters the wrong username and password for 3 times, the user will be redirected to the main menu.
+3. If the user selects signup option, the user will be asked to enter the username and password. If the username is already taken, the user will be asked to enter the username and password again. If the username is not taken, the user will be redirected to the home page.
+4. If the user selects exit option, the user will be redirected to the main menu.
+5. The home page will have 3 options 1. Consumer 2. Producer 3. Admin 4.User
+6. If the user selects consumer option, the user will be redirected to the consumer page.
+7. If the user selects producer option, the user will be redirected to the producer page.
+8. If the user selects admin option, the user will be redirected to the admin page.
+9. The consumer page will have 3 options 1. View Products 2. View Cart 3. Logout
+10. If the user selects view products option, the user will be redirected to the view products page.
+11. If the user selects view cart option, the user will be redirected to the view cart page.
+12. If the user selects logout option, the user will be redirected to the main menu.
+13. The producer page will have 3 options 1. Add Products 2. View Products 3. Logout
+14. If the user selects add products option, the user will be redirected to the add products page.
+15. If the user selects view products option, the user will be redirected to the view products page.
+16. If the user selects logout option, the user will be redirected to the main menu.
+17. The admin page will have 3 options 1.Delete users 2.Delete products 3.Logout
+18. If the user selects delete users option, the user will be redirected to the delete users page.
+19. If the user selects delete products option, the user will be redirected to the delete products page.
+20. If the user selects logout option, the user will be redirected to the main menu.
+
+
+User Class
+1. The user class will have the following attributes 1. Username 2. Password
+2. The user class will have the following functions 1. Login 2. Signup
+3. The login function will check if the username and password are correct.
+4. The signup function will check if the username is already taken.
+
+
+
+Consumer Class
+1. The consumer class will have the following attributes 1. Username 2. Password 3. Cart
+2. The consumer class will have the following functions 1. View Products 2. View Cart 3. Add to Cart 4. Remove from Cart 5. Checkout
+3. The view products function will display all the products available in the store.
+4. The view cart function will display all the products in the cart.
+5. The add to cart function will add the product to the cart.
+6. The remove from cart function will remove the product from the cart.
+7. The checkout function will display the total amount to be paid.
+
+Producer Class
+1. The producer class will have the following attributes 1. Username 2. Password 3. Products
+2. The producer class will have the following functions 1. Add Products 2. View Products 3. Delete Products
+3. The add products function will add the product to the products list.
+4. The view products function will display all the products in the products list.
+5. The delete products function will delete the product from the products list.
+
+Admin Class
+1. The admin class will have the following attributes 1. Username 2. Password 3. Users 4. Products 
+2. The admin class will have the following functions 1. Delete Users 2. Delete Products 3. View Users 4. View Products 5.Add Category
+3. The delete users function will delete the user from the users list. 
+4. The delete products function will delete the product from the products list.
+5. The view users function will display all the users in the users list.
+6. The view products function will display all the products in the products list.
+7. The add category function will add the category to the category list.
+
+
+
+OOPS Concepts
+1. Constructurs for the classes
+2. Exception Handling
+3. Inheritance- All the classes will inherit the user class
+4. Polymorphism - View methods function will be created in the user class and will be overridden in the consumer,producer and admin class.
+
+
+
+Files to be used
+1. User.txt -> This file will contain the username and password of all the users.
+2. Products.txt -> This file will contain the products available in the store.
+3. Cart.txt -> This file will contain the products in the cart for a particular consumer.
+4. Category.txt -> This file will contain the category of the products available in the store.
