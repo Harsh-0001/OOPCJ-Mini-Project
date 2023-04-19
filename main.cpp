@@ -11,22 +11,24 @@ protected:
     string password;
 
 public:
-    void set_user_name(string name)
+    user()
     {
-        user_name = name;
+        user_name = "";
+        password = "";
     }
-    void set_password(string pass)
+    user(string user_name, string password)
     {
-        password = pass;
+        cout<<"Not permitted"<<endl;
     }
-    string get_user_name()
-    {
-        return user_name;
-    }
-    string get_password()
-    {
-        return password;
-    }
+
+    // Pure virtual functions as we don't want to create object of user class and we want to make sure that all the derived classes have to implement these functions as thier register_user and login functions are different
+    virtual void register_user() = 0;
+    virtual void login() = 0;
+};
+
+class admin : public user
+{
+public:
     void register_user()
     {
         cout << "Enter your name: ";
@@ -55,7 +57,7 @@ public:
         cout << "Enter password: ";
         cin >> password;
 
-        // Open file and check if user_name and password match
+        // Open file and check if user_name and password exists
         try
         {
             ifstream file;
@@ -81,23 +83,20 @@ public:
             std::cerr << e.what() << '\n';
         }
     }
-};
-
-class admin : public user
-{
-public:
-    void add_user()
+    
+    
+    void add_admin()
     {
-        cout << "Enter username: ";
+        cout << "Enter your name: ";
         cin >> user_name;
-        cout << "Enter password: ";
+        cout << "Enter your password: ";
         cin >> password;
 
         // Open file and write user_name and password to keep track of registered users
         try
         {
             ofstream file;
-            file.open("user.txt", ios::app);
+            file.open("admin.txt", ios::app);
             file << user_name << " " << password << endl;
             file.close();
         }
@@ -165,6 +164,308 @@ public:
             std::cerr << e.what() << '\n';
         }
     }
+
+    void display_users()
+    {
+        // Open file and display all the users
+        try
+        {
+            ifstream file;
+            file.open("user.txt");
+            string line;
+            while (getline(file, line))
+            {
+                cout << line << endl;
+            }
+            file.close();
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+    }
+
+    void display_admins()
+    {
+        // Open file and display all the users
+        try
+        {
+            ifstream file;
+            file.open("admin.txt");
+            string line;
+            while (getline(file, line))
+            {
+                cout << line << endl;
+            }
+            file.close();
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+    }
+
+    void delete_admin()
+    {
+        cout << "Enter username: ";
+        cin >> user_name;
+        cout << "Enter password: ";
+        cin >> password;
+
+        // Open file and delete user_name and password
+        try
+        {
+            ifstream file;
+            file.open("admin.txt");
+            string line;
+            while (getline(file, line))
+            {
+                if (line.find(user_name) != string::npos && line.find(password) != string::npos)
+                {
+                    string filename = "admin.txt";
+                    int line_number_to_delete = 3;
+
+                    // Open the input file and temporary file
+                    ifstream input_file(filename);
+                    ofstream temp_file("temp.txt");
+
+                    // Read and copy each line, except for the line to delete
+                    string line;
+                    int current_line_number = 1;
+                    while (getline(input_file, line))
+                    {
+                        if (current_line_number != line_number_to_delete)
+                        {
+                            temp_file << line << endl;
+                        }
+                        current_line_number++;
+                    }
+
+                    // Close both files
+                    input_file.close();
+                    temp_file.close();
+
+                    // Delete the input file and rename the temporary file
+                    remove(filename.c_str());
+                    rename("temp.txt", filename.c_str());
+                    
+
+                }
+                else
+                {
+                    cout << "User not found" << endl;
+                    break;
+                }
+            }
+            file.close();
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+    }
+
+    void add_producer()
+    {
+        cout << "Enter your name: ";
+        cin >> user_name;
+        cout << "Enter your password: ";
+        cin >> password;
+
+        // Open file and write user_name and password to keep track of registered users
+        try
+        {
+            ofstream file;
+            file.open("producer.txt", ios::app);
+            file << user_name << " " << password << endl;
+            file.close();
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+    }
+
+    void display_producer()
+    {
+        // Open file and display all the users
+        try
+        {
+            ifstream file;
+            file.open("producer.txt");
+            string line;
+            while (getline(file, line))
+            {
+                cout << line << endl;
+            }
+            file.close();
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+    }
+
+    void delete_producer()
+    {
+        cout << "Enter username: ";
+        cin >> user_name;
+        cout << "Enter password: ";
+        cin >> password;
+
+        // Open file and delete user_name and password
+        try
+        {
+            ifstream file;
+            file.open("producer.txt");
+            string line;
+            while (getline(file, line))
+            {
+                if (line.find(user_name) != string::npos && line.find(password) != string::npos)
+                {
+                    string filename = "producer.txt";
+                    int line_number_to_delete = 3;
+
+                    // Open the input file and temporary file
+                    ifstream input_file(filename);
+                    ofstream temp_file("temp.txt");
+
+                    // Read and copy each line, except for the line to delete
+                    string line;
+                    int current_line_number = 1;
+                    while (getline(input_file, line))
+                    {
+                        if (current_line_number != line_number_to_delete)
+                        {
+                            temp_file << line << endl;
+                        }
+                        current_line_number++;
+                    }
+
+                    // Close both files
+                    input_file.close();
+                    temp_file.close();
+
+                    // Delete the input file and rename the temporary file
+                    remove(filename.c_str());
+                    rename("temp.txt", filename.c_str());
+                    
+
+                }
+                else
+                {
+                    cout << "User not found" << endl;
+                    break;
+                }
+            }
+            file.close();
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+    }
+    
+    void add_consumer()
+    {
+        cout << "Enter your name: ";
+        cin >> user_name;
+        cout << "Enter your password: ";
+        cin >> password;
+
+        // Open file and write user_name and password to keep track of registered users
+        try
+        {
+            ofstream file;
+            file.open("consumer.txt", ios::app);
+            file << user_name << " " << password << endl;
+            file.close();
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+    }
+
+    void display_consumer()
+    {
+        // Open file and display all the users
+        try
+        {
+            ifstream file;
+            file.open("consumer.txt");
+            string line;
+            while (getline(file, line))
+            {
+                cout << line << endl;
+            }
+            file.close();
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+    }
+
+    void delete_consumer()
+    {
+        cout << "Enter username: ";
+        cin >> user_name;
+        cout << "Enter password: ";
+        cin >> password;
+
+        // Open file and delete user_name and password
+        try
+        {
+            ifstream file;
+            file.open("consumer.txt");
+            string line;
+            while (getline(file, line))
+            {
+                if (line.find(user_name) != string::npos && line.find(password) != string::npos)
+                {
+                    string filename = "consumer.txt";
+                    int line_number_to_delete = 3;
+
+                    // Open the input file and temporary file
+                    ifstream input_file(filename);
+                    ofstream temp_file("temp.txt");
+
+                    // Read and copy each line, except for the line to delete
+                    string line;
+                    int current_line_number = 1;
+                    while (getline(input_file, line))
+                    {
+                        if (current_line_number != line_number_to_delete)
+                        {
+                            temp_file << line << endl;
+                        }
+                        current_line_number++;
+                    }
+
+                    // Close both files
+                    input_file.close();
+                    temp_file.close();
+
+                    // Delete the input file and rename the temporary file
+                    remove(filename.c_str());
+                    rename("temp.txt", filename.c_str());
+                    
+
+                }
+                else
+                {
+                    cout << "User not found" << endl;
+                    break;
+                }
+            }
+            file.close();
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+    }
 };
 
 int main()
@@ -172,8 +473,10 @@ int main()
     //     user u;
     //    u.register_user();
     //     u.login();
+    // admin a;
+    // a.add_user();
+    // a.delete_user();
     admin a;
-    a.add_user();
-    a.delete_user();
+    a.add_admin();
     return 0;
 }
