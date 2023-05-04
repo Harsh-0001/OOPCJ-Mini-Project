@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <vector>
 using namespace std;
 
 class user
@@ -18,7 +19,7 @@ public:
     }
     user(string user_name, string password)
     {
-        cout<<"Not permitted"<<endl;
+        cout << "Not permitted" << endl;
     }
 
     // Pure virtual functions as we don't want to create object of user class and we want to make sure that all the derived classes have to implement these functions as thier register_user and login functions are different
@@ -83,8 +84,7 @@ public:
             std::cerr << e.what() << '\n';
         }
     }
-    
-    
+
     void add_admin()
     {
         cout << "Enter your name: ";
@@ -148,8 +148,6 @@ public:
                     // Delete the input file and rename the temporary file
                     remove(filename.c_str());
                     rename("temp.txt", filename.c_str());
-                    
-
                 }
                 else
                 {
@@ -248,8 +246,6 @@ public:
                     // Delete the input file and rename the temporary file
                     remove(filename.c_str());
                     rename("temp.txt", filename.c_str());
-                    
-
                 }
                 else
                 {
@@ -349,8 +345,6 @@ public:
                     // Delete the input file and rename the temporary file
                     remove(filename.c_str());
                     rename("temp.txt", filename.c_str());
-                    
-
                 }
                 else
                 {
@@ -365,7 +359,7 @@ public:
             std::cerr << e.what() << '\n';
         }
     }
-    
+
     void add_consumer()
     {
         cout << "Enter your name: ";
@@ -450,8 +444,6 @@ public:
                     // Delete the input file and rename the temporary file
                     remove(filename.c_str());
                     rename("temp.txt", filename.c_str());
-                    
-
                 }
                 else
                 {
@@ -468,6 +460,250 @@ public:
     }
 };
 
+class product
+{
+public:
+    string products;
+    product()
+    {
+    }
+    product(string products)
+    {
+        this->products = products;
+    }
+    void addProduct()
+    {
+
+        cout << "Enter Product:";
+        cin >> products;
+        // Take amount and description of product
+        double amount;
+        string description;
+        cout << "Enter amount:";
+        cin >> amount;
+        cout << "Enter description:";
+        cin >> description;
+        cout << description;
+        // Open file and write product to file
+
+        try
+        {
+            ofstream file;
+            file.open("Products.txt", ios::app);
+            file << products << " " << amount << " " << description << endl;
+            file.close();
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+    }
+};
+
+class producer : public user
+{
+private:
+    int login_success = 0;
+
+public:
+    producer()
+    {
+        login_success = 0;
+    }
+    producer(string name, string password) : user(name, password) {}
+    // ADD PRODUCT
+
+    void login()
+    {
+        string user_name;
+        string password;
+        cout << "Enter username:";
+        cin >> user_name;
+        cout << "Enter password:";
+        cin >> password;
+        try
+        {
+            ifstream file;
+            file.open("producer.txt");
+            string line;
+            while (getline(file, line))
+            {
+                if (line.find(user_name) != string::npos && line.find(password) != string::npos)
+                {
+                    cout << "Login successful" << endl;
+                    break;
+                }
+                else
+                {
+                    cout << "Login failed" << endl;
+                    break;
+                }
+            }
+            file.close();
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+    }
+
+    void register_user()
+    {
+        cout << "Enter your name: ";
+        cin >> user_name;
+        cout << "Enter your password: ";
+        cin >> password;
+
+        // Open file and write user_name and password to keep track of registered users
+        try
+        {
+            ofstream file;
+            file.open("producer.txt", ios::app);
+            file << user_name << " " << password << endl;
+            file.close();
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+    }
+
+    // VIEW PRODUCT
+
+    void viewProduct()
+    {
+        try
+        {
+            ifstream file;
+            file.open("Products.txt");
+            string line;
+            while (getline(file, line))
+            {
+                cout << line << endl;
+            }
+            file.close();
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+    }
+
+    // DELETE PRODUCTS
+
+   void delete_product()
+{
+    string product;
+    string price;
+    string description;
+
+    cout << "Enter product: ";
+    cin >> product;
+    cout << "Enter price: ";
+    cin >> price;
+    cout << "Enter description: ";
+    cin >> description;
+
+    try
+    {
+        ifstream input_file("Products.txt");
+        ofstream temp_file("temp.txt");
+
+        bool product_found = false;
+        string line;
+        while (getline(input_file, line))
+        {
+            if (line.find(product) != string::npos &&
+                line.find(price) != string::npos &&
+                line.find(description) != string::npos)
+            {
+                product_found = true;
+            }
+            else
+            {
+                temp_file << line << endl;
+            }
+        }
+
+        input_file.close();
+        temp_file.close();
+
+        if (!product_found)
+        {
+            cout << "Product not found" << endl;
+            remove("temp.txt");
+        }
+        else
+        {
+            remove("Products.txt");
+            rename("temp.txt", "Products.txt");
+            cout << "Product deleted successfully" << endl;
+        }
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+}
+
+};
+
+class Consumer : public user
+{
+private:
+    vector<string> cart;
+
+public:
+    Consumer(string name, string password) : user(name, password) {}
+
+    void viewProducts()
+    {
+        cout << "Available Products:\n";
+        // Code to display available products
+    }
+
+    void viewCart()
+    {
+        cout << "Items in Cart:\n";
+        for (int i = 0; i < cart.size(); i++)
+        {
+            cout << cart[i] << endl;
+        }
+    }
+
+    void addToCart(string product)
+    {
+        cart.push_back(product);
+        cout << product << " added to cart.\n";
+    }
+
+    void removeFromCart(string product)
+    {
+        for (int i = 0; i < cart.size(); i++)
+        {
+            if (cart[i] == product)
+            {
+                cart.erase(cart.begin() + i);
+                cout << product << " removed from cart.\n";
+                return;
+            }
+        }
+        cout << product << " not found in cart.\n";
+    }
+
+    void checkout()
+    {
+        double total = 0;
+        // Code to calculate total amount
+        cout << "Total amount to be paid: " << total << endl;
+    }
+
+    void pay()
+    {
+        cout << "Payment Successful!\n";
+    }
+};
+
 int main()
 {
     //     user u;
@@ -476,7 +712,21 @@ int main()
     // admin a;
     // a.add_user();
     // a.delete_user();
-    admin a;
-    a.add_admin();
+    // admin a;
+    // a.add_admin();
+    // producer p;
+    // // p.register_user();
+    // p.login();
+    // admin a;
+    // a.register_user();
+    // a.login();
+    // producer p;
+    // p.register_user();
+    // p.login();
+    producer p;
+    product a;
+    a.addProduct();
+    // p.delete_product();
+    p.viewProduct();
     return 0;
 }
