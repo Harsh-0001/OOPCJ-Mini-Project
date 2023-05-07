@@ -654,12 +654,89 @@ private:
     vector<string> cart;
 
 public:
+    Consumer()
+    {
+    }
+    
     Consumer(string name, string password) : user(name, password) {}
 
     void viewProducts()
     {
         cout << "Available Products:\n";
+        // From products.txt display all products
+
+        try
+        {
+            ifstream file;
+            file.open("Products.txt");
+            string line;
+            while (getline(file, line))
+            {
+                cout << line << endl;
+            }
+            file.close();
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+
         // Code to display available products
+    }
+
+    void register_user()
+    {
+        cout << "Enter your name: ";
+        cin >> user_name;
+        cout << "Enter your password: ";
+        cin >> password;
+
+        // Open file and write user_name and password to keep track of registered users
+        try
+        {
+            ofstream file;
+            file.open("consumer.txt", ios::app);
+            file << user_name << " " << password << endl;
+            file.close();
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+    }
+
+    void login()
+    {
+        string user_name;
+        string password;
+        cout << "Enter username:";
+        cin >> user_name;
+        cout << "Enter password:";
+        cin >> password;
+        try
+        {
+            ifstream file;
+            file.open("consumer.txt");
+            string line;
+            while (getline(file, line))
+            {
+                if (line.find(user_name) != string::npos && line.find(password) != string::npos)
+                {
+                    cout << "Login successful" << endl;
+                    break;
+                }
+                else
+                {
+                    cout << "Login failed" << endl;
+                    break;
+                }
+            }
+            file.close();
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
     }
 
     void viewCart()
@@ -755,27 +832,11 @@ public:
 
 int main()
 {
-    //     user u;
-    //    u.register_user();
-    //     u.login();
-    // admin a;
-    // a.add_user();
-    // a.delete_user();
-    // admin a;
-    // a.add_admin();
-    // producer p;
-    // // p.register_user();
-    // p.login();
-    // admin a;
-    // a.register_user();
-    // a.login();
-    // producer p;
-    // p.register_user();
-    // p.login();
-    // producer p;
-    // product a;
-    // a.addProduct();
-    // // p.delete_product();
-    // p.viewProduct();
-    return 0;
-}
+    Consumer c;
+    // c.register_user();
+    // c.login();
+    // c.viewProducts();
+    c.addToCart("1");
+    c.checkout();
+
+    }
