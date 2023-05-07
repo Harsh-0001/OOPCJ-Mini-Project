@@ -888,6 +888,7 @@ int main()
     int secret_code = 1234;
     admin admin1;
     admin1.add_admin();
+    system("cls");
     while (true)
     {
         cout << "Are you a consumer or a seller?\n";
@@ -937,6 +938,7 @@ int main()
                 {
                     std::cerr << e.what() << '\n';
                 }
+                system("cls");
                 Consumer old;
                 cout << "What would you like to do?" << endl;
                 cout << "1. View products" << endl;
@@ -948,6 +950,7 @@ int main()
 
                 int choice2;
                 cin >> choice2;
+                system("cls");
                 string prod;
                 string prod1;
                 string old_card_number;
@@ -997,6 +1000,7 @@ int main()
                     cout << "5. Checkout" << endl;
                     cout << "6. Pay" << endl;
                     cin >> choice2;
+                    system("cls");
 
                 } while (choice2 != 6);
                 if (choice1 == 1)
@@ -1008,6 +1012,7 @@ int main()
                     cin >> new_user_name;
                     cout << "Enter password:";
                     cin >> new_password;
+                    system("cls");
                     // Code to register
                     Consumer new_consumer;
                     new_consumer.register_user();
@@ -1023,6 +1028,7 @@ int main()
                     cout << "6. Pay" << endl;
                     int choice3;
                     cin >> choice3;
+                    system("cls");
                     do
                     {
                         switch (choice3)
@@ -1067,7 +1073,7 @@ int main()
                         cout << "5. Checkout" << endl;
                         cout << "6. Pay" << endl;
                         cin >> choice3;
-
+                        system("cls");
                     } while (choice3 != 6);
                 }
                 if (choice == 2)
@@ -1078,6 +1084,7 @@ int main()
                     cout << "2. Existing seller" << endl;
                     int choice4;
                     cin >> choice4;
+                    system("cls");
                     if (choice4 == 1)
                     {
                         cout << "Great! Let's get you registered" << endl;
@@ -1087,6 +1094,7 @@ int main()
                         cin >> new_user_name;
                         cout << "Enter password:";
                         cin >> new_password;
+                        system("cls");
                         // Code to register
                         producer new_seller;
                         new_seller.register_user();
@@ -1100,6 +1108,7 @@ int main()
                         cout << "4. Update products" << endl;
                         int choice5;
                         cin >> choice5;
+                        system("cls");
                         do
                         {
                             product new_product;
@@ -1128,7 +1137,7 @@ int main()
                             cout << "3. Remove products" << endl;
                             cout << "4. Update products" << endl;
                             cin >> choice5;
-
+                            system("cls");
                         } while (choice5 != 4);
                     }
                     if (choice4 == 2)
@@ -1140,7 +1149,9 @@ int main()
                         string old_password;
                         cin >> old_password;
                         producer old_seller;
+                        system("cls");
                         old_seller.login();
+                        system("cls");
                         cout << "What would you like to do?" << endl;
                         cout << "1. Add products" << endl;
                         cout << "2. View products" << endl;
@@ -1175,7 +1186,7 @@ int main()
                             cout << "3. Remove products" << endl;
                             cout << "4. Update products" << endl;
                             cin >> choice6;
-
+                            system("cls");
                         } while (choice6 != 4);
                     }
                 }
@@ -1199,6 +1210,7 @@ int main()
 
             int choice7;
             cin >> choice7;
+            system("cls");
             do
             {
                 switch (choice7)
@@ -1234,12 +1246,28 @@ int main()
                     cout << "Invalid choice" << endl;
                     break;
                 }
+                cout << "What would you like to do?" << endl;
+            cout << "1. Add a admin" << endl;
+            cout << "2. Remove a admin" << endl;
+            cout << "3. View all admins" << endl;
+            cout << "4. Add a seller" << endl;
+            cout << "5. Remove a seller" << endl;
+            cout << "6. View all sellers" << endl;
+            cout << "7. Add a consumer" << endl;
+            cout << "8. Remove a consumer" << endl;
+            cout << "9. View all consumers" << endl;
+
+            int choice7;
+            cin >> choice7;
+            system("cls");
             } while (choice7 != 10);
         }
-        if(choice==0){
-            cout<<"Thank you for using our application"<<endl;
+        if (choice == 0)
+        {
+            cout << "Thank you for using our application" << endl;
             exit(0);
-    }
+        }
 
-    return 0;
+        return 0;
+    }
 }
