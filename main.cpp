@@ -1236,6 +1236,9 @@ int main()
                 }
             } while (choice7 != 10);
         }
+        if(choice==0){
+            cout<<"Thank you for using our application"<<endl;
+            exit(0);
     }
 
     return 0;
