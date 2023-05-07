@@ -1247,19 +1247,19 @@ int main()
                     break;
                 }
                 cout << "What would you like to do?" << endl;
-            cout << "1. Add a admin" << endl;
-            cout << "2. Remove a admin" << endl;
-            cout << "3. View all admins" << endl;
-            cout << "4. Add a seller" << endl;
-            cout << "5. Remove a seller" << endl;
-            cout << "6. View all sellers" << endl;
-            cout << "7. Add a consumer" << endl;
-            cout << "8. Remove a consumer" << endl;
-            cout << "9. View all consumers" << endl;
+                cout << "1. Add a admin" << endl;
+                cout << "2. Remove a admin" << endl;
+                cout << "3. View all admins" << endl;
+                cout << "4. Add a seller" << endl;
+                cout << "5. Remove a seller" << endl;
+                cout << "6. View all sellers" << endl;
+                cout << "7. Add a consumer" << endl;
+                cout << "8. Remove a consumer" << endl;
+                cout << "9. View all consumers" << endl;
 
-            int choice7;
-            cin >> choice7;
-            system("cls");
+                int choice7;
+                cin >> choice7;
+                system("cls");
             } while (choice7 != 10);
         }
         if (choice == 0)
