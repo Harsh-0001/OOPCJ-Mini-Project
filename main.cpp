@@ -656,6 +656,7 @@ private:
 public:
     Consumer()
     {
+        
     }
     
     Consumer(string name, string password) : user(name, password) {}
@@ -832,11 +833,107 @@ public:
 
 int main()
 {
-    Consumer c;
-    // c.register_user();
-    // c.login();
-    // c.viewProducts();
-    c.addToCart("1");
-    c.checkout();
+    cout << "Welcome to the Online Shopping Portal!\n";
+    while(true)
+    {
+    cout << "Are you a consumer or a seller?\n";
+    cout << "1. Consumer\n";
+    cout << "2. Seller\n";
+    int choice;
+    cin >> choice;
+    if(choice == 1)
+    {
+        cout<<"Are you a new user or an existing user?"<<endl;
+        cout<<"1. New user"<<endl;
+        cout<<"2. Existing user"<<endl;
+        int choice1;
+        cin>>choice1;
+        if(choice1 == 2)
+        {
+            cout<<"Nice to see you again!"<<endl;
+            string user_name;
+            string password;
+            cout << "Enter username:";
+            cin >> user_name;
+            cout << "Enter password:";
+            cin >> password;
+            // Code to login
+            try
+            {
+                ifstream file;
+                file.open("consumer.txt");
+                string line;
+                while (getline(file, line))
+                {
+                    if (line.find(user_name) != string::npos && line.find(password) != string::npos)
+                    {
+                        cout << "Login successful" << endl;
+                        break;
+                    }
+                    else
+                    {
+                        cout << "Login failed" << endl;
+                        break;
+                    }
+                }
+                file.close();
+            }
+            catch (const std::exception &e)
+            {
+                std::cerr << e.what() << '\n';
+            }
+            Consumer old;
+            cout<<"What would you like to do?"<<endl;
+            cout<<"1. View products"<<endl;
+            cout<<"2. View cart"<<endl;
+            cout<<"3. Add to cart"<<endl;
+            cout<<"4. Remove from cart"<<endl;
+            cout<<"5. Checkout"<<endl;
+            cout<<"6. Pay"<<endl;
+            int choice2;
+            cin>>choice2;
+            switch(choice2)
+            {
+                case 1:
+                old.viewProducts();
+                break;
+                case 2:
+                old.viewCart();
+                break;
+                case 3:
+                cout<<"Enter the product you want to add to cart"<<endl;
+                string product;
+                cin>>product;
+                old.addToCart(product);
+                break;
+                case 4:
+                cout<<"Enter the product you want to remove from cart"<<endl;
+                string product1;
+                cin>>product1;
+                old.removeFromCart(product1);
+                break;
+                case 5:
+                old.checkout();
+                break;
+                case 6:
+                cout<<"Enter your card number"<<endl;
+                string card_number;
+                cin>>card_number;
+                cout<<"Enter your cvv"<<endl;
+                string cvv;
+                cin>>cvv;
+                cout<<"Enter your expiry date"<<endl;
+                string expiry_date;
+                cin>>expiry_date;
+                old.pay(card_number,cvv,expiry_date);
+                break;
+                default:
+                cout<<"Invalid choice"<<endl;
+                break;
+            }
 
+            
+        }
+    }    
     }
+}
