@@ -695,12 +695,61 @@ public:
     {
         double total = 0;
         // Code to calculate total amount
+        //Compute your total amount from product.txt file for each item in cart
+        try
+        {
+            ifstream file;
+            file.open("Products.txt");
+            string line;
+            while (getline(file, line))
+            {
+                for (int i = 0; i < cart.size(); i++)
+                {
+                    if (line.find(cart[i]) != string::npos)
+                    {
+                        string price = line.substr(line.find(" ") + 1, line.find(" ", line.find(" ") + 1));
+                        total += stod(price);
+                    }
+                }
+            }
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+        
+        
+
         cout << "Total amount to be paid: " << total << endl;
     }
 
-    void pay()
+    void pay(string card_number, string cvv, string expiry_date)
     {
+
+        // Code to pay using card
+        //Check if card is valid
+        //Check if card is not expired
+        //Check if cvv is correct
+        //Check if card number is correct
+        //Check if sufficient balance is available
+        //If all conditions are satisfied, pay the amount   
+        if(card_number.length()!=16)
+        {
+            cout<<"Invalid card number"<<endl;
+            return;
+        }
+        if(cvv.length()!=3)
+        {
+            cout<<"Invalid cvv"<<endl;
+            return;
+        }
+        if(expiry_date.length()!=5)
+        {
+            cout<<"Invalid expiry date"<<endl;
+            return;
+        }
         cout << "Payment Successful!\n";
+        cout << "Thank you for shopping with us!\n";
     }
 };
 
@@ -723,10 +772,10 @@ int main()
     // producer p;
     // p.register_user();
     // p.login();
-    producer p;
-    product a;
-    a.addProduct();
-    // p.delete_product();
-    p.viewProduct();
+    // producer p;
+    // product a;
+    // a.addProduct();
+    // // p.delete_product();
+    // p.viewProduct();
     return 0;
 }
