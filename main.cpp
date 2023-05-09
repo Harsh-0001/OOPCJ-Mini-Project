@@ -1077,7 +1077,7 @@ if(choice == 1)
         {
             c.viewProducts();
         }
-        if (choiceint == 1)
+        else if (choiceint == 1)
         {
             cout<<"Enter the name of the product you want to add to cart\n";                                                                                                
             cin>>item;
